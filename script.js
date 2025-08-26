@@ -15,7 +15,7 @@ const resultMessage = document.getElementById("result-message");
 const restartButton = document.getElementById("restart-btn");
 
 
-const quizQuestions = [
+let quizQuestions = [
    {
     question:"What is the capital of France?",
     answers:[
@@ -61,15 +61,67 @@ const quizQuestions = [
         {text:"Ag", correct: false},
     ],
    },
+   {
+        question: "Who wrote 'Romeo and Juliet'?",
+        answers: [
+            { text: "William Shakespeare", correct: true },
+            { text: "Charles Dickens", correct: false },
+            { text: "Mark Twain", correct: false },
+            { text: "Jane Austen", correct: false }
+        ]
+    },
+    {
+        question: "Which gas do plants absorb from the atmosphere?",
+        answers: [
+            { text: "Oxygen", correct: false },
+            { text: "Carbon Dioxide", correct: true },
+            { text: "Nitrogen", correct: false },
+            { text: "Hydrogen", correct: false }
+        ]
+    },
+    {
+        question: "What is the largest mammal?",
+        answers: [
+            { text: "Elephant", correct: false },
+            { text: "Blue Whale", correct: true },
+            { text: "Giraffe", correct: false },
+            { text: "Shark", correct: false }
+        ]
+    },
+    {
+        question: "How many states do we have in Nigeria?",
+        answers: [
+            { text: "35", correct: false },
+            { text: "26", correct: false },
+            { text: "36", correct: true },
+            { text: "28", correct: false }
+        ]
+    },
+    {
+        question: "What is the boiling point of water?",
+        answers: [
+            { text: "100°C", correct: true },
+            { text: "90°C", correct: false },
+            { text: "80°C", correct: false },
+            { text: "70°C", correct: false }
+        ]
+    },
 ];
+
+function shuffleArray(array) {
+    return array.sort(() => Math.random() - 0.5);
+}
+
+
+
 
 // RESET VAR
 let currentQuestionIndex = 0;
 let score = 0;
 let answerDisabled = false;
 
-totalQuestionSpan.textContent = quizQuestions.length;
-maxScore.textContent = quizQuestions.length;
+totalQuestionSpan.textContent =(quizQuestions.length) / 2;
+maxScore.textContent = (quizQuestions.length) /2;
 
 // EVENT LISTENER
 
@@ -77,8 +129,10 @@ startButton.addEventListener("click", startQuiz);
 restartButton.addEventListener("click", restartQuiz);
 
 function startQuiz(){
+    // Shuffle and pick 5 random questions
+   quizQuestions = shuffleArray(quizQuestions).slice(0, 5);
    currentQuestionIndex = 0;
-   currentQuestionSpan.textContent = 0;
+   scoreSpan.textContent = 0;
 
     startScreen.classList.remove("active");
     quizScreen.classList.add("active");
@@ -152,7 +206,7 @@ function selectAnswer(event){
        
         finalScore.textContent = score;
 
-        const percentage=(score/quizQuestions.length) * 100;
+        const percentage=score/((quizQuestions.length)/2) * 100;
 
          if(percentage === 100 ){
                 resultMessage.textContent = "Perfect! You're a genius";
