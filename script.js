@@ -120,6 +120,7 @@ let currentQuestionIndex = 0;
 let score = 0;
 let answerDisabled = false;
 
+
 totalQuestionSpan.textContent =(quizQuestions.length) / 2;
 maxScore.textContent = (quizQuestions.length) /2;
 
@@ -132,11 +133,12 @@ function startQuiz(){
     // Shuffle and pick 5 random questions
    quizQuestions = shuffleArray(quizQuestions).slice(0, 5);
    currentQuestionIndex = 0;
-   scoreSpan.textContent = 0;
+   scoreSpan.textContent =0 ;
+   score=0;
+
 
     startScreen.classList.remove("active");
     quizScreen.classList.add("active");
-
     showQuestion()
 }
 function showQuestion(){
@@ -183,15 +185,12 @@ function selectAnswer(event){
         }
     })
      const isCorrect = selectedButton.dataset.correct === "true";
-    
     if(isCorrect ){
         score++;
         scoreSpan.textContent = score
     }
-
     setTimeout(()=>{
         currentQuestionIndex++;
-
         // check if there is more question
         if(currentQuestionIndex < quizQuestions.length){
             showQuestion()
@@ -199,13 +198,11 @@ function selectAnswer(event){
             showResult()
         }
     }, 1000)
-
     function showResult(){
         quizScreen.classList.remove("active")
         resultScreen.classList.add("active")
-       
-        finalScore.textContent = score;
 
+        finalScore.textContent = score;
         const percentage=score/((quizQuestions.length)/2) * 100;
 
          if(percentage === 100 ){
@@ -219,9 +216,7 @@ function selectAnswer(event){
             } else {
                 resultMessage.textContent = "Kep studying! You'll get better!"
             }
-
     }
-
 }
 
 function restartQuiz(){
